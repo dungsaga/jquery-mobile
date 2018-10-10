@@ -552,10 +552,13 @@ $.widget( "mobile.popup", $.mobile.widget, {
 	},
 
 	_reposition: function( o ) {
-		// We only care about position-related parameters for repositioning
-		o = { x: o.x, y: o.y, positionTo: o.positionTo };
-		this._trigger( "beforeposition", undefined, o );
-		this._ui.container.offset( this._placementCoords( this._desiredCoords( o ) ) );
+		var self = this;
+		setTimeout( function() {
+			// We only care about position-related parameters for repositioning
+			o = { x: o.x, y: o.y, positionTo: o.positionTo };
+			self._trigger( "beforeposition", undefined, o );
+			self._ui.container.offset( self._placementCoords( self._desiredCoords( o ) ) );
+		}, 100 ); // a delay to prevent problem "popup appear at top of screen on iOS 12"
 	},
 
 	reposition: function( o ) {
